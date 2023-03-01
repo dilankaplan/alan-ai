@@ -6,13 +6,14 @@ const API_KEY = '8c4afe8b27e34e70a513fd51ca5ace0e';
 let savedArticles = [];
 
 // News by Source
+
 intent('(give |show |tell) me the latest news', (p) => {
 let NEWS_API_URL = `https://newsapi.org/v2/top-headlines?apiKey=${API_KEY}&country=in`;
     
-  if(p.source.value) {
-    p.source.value=p.source.value.toLowerCase().split(" ").join("-");
-    NEWS_API_URL = `${NEWS_API_URL}?sources=${p.source.value}&apiKey=${API_KEY}`
+     if(p.source.value) {
+    NEWS_API_URL = `${NEWS_API_URL}&sources=${p.source.value.toLowerCase().split(" ").join('-')}`
 }
+
     
    api.request(NEWS_API_URL, {headers: {"user-agent": 'user agent' }}, (error, response, body) => {
         const { totalResults, articles } = JSON.parse(body);
